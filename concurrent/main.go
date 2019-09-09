@@ -3,12 +3,13 @@ package main
 import (
 	"fmt"
 	prmt "github.com/gitchander/permutation"
-	"sync"
+	"github.com/mr51m0n/gorc"
 	"time"
 )
 
 func main() {
-	var wg sync.WaitGroup
+	//var wg sync.WaitGroup
+	var gorc0 gorc.Gorc
 	// Timings
 	// 5 - 120 - 810.127µs
 	// 8 - 40320 - 237.132058ms
@@ -30,9 +31,12 @@ func main() {
 		count += 1
 		//fmt.Println(count)
 
-		wg.Add(1)
-		go func(team League, wg *sync.WaitGroup, c int) {
-			defer wg.Done()
+		//wg.Add(1)
+		gorc0.Inc()
+		//go func(team League, wg *sync.WaitGroup, c int) {
+		go func(team League, c int) {
+			//defer wg.Done()
+			defer gorc0.Dec()
 
 			//leagueMatch := NewConcurrentSlice()
 			//for i, opp := range opponentTeam {
@@ -62,11 +66,13 @@ func main() {
 			leagueMatches.SetMostGoodChances(leagueMatch)
 			leagueMatches.SetLeastCounterChances(leagueMatch)
 
-		}(opponentTeam, &wg, count)
+		}(opponentTeam, count)
+		//}(opponentTeam, &wg, count)
 
 	}
+	gorc0.WaitLow(8)
 
-	wg.Wait()
+	//wg.Wait()
 
 	elapsed := time.Since(start)
 	//fmt.Printf("leagueMatches Diff: %d\n", leagueMatches.Diff())
