@@ -263,7 +263,6 @@ func (lm LeagueMatches) ToString() string {
 		lm.TopByMostGreatChances.ToString(),
 		lm.TopByMostGoodChances.ToString(),
 		lm.TopByLeastCounterChances.ToString(),
-		lm.TopByLeastCounterChances.ToString(),
 	)
 
 	return output
