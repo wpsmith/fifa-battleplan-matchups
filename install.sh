@@ -9,3 +9,7 @@ echo 'export GOTOOLDIR=/usr/lib/golang/pkg/tool/linux_amd64' >>~/.bash_profile
 
 go version
 go env
+
+go get github.com/wpsmith/fifa-battleplan-matchups/concurrent
+cd "$GOPATH/src/github.com/wpsmith/fifa-battleplan-matchups/concurrent"
+go build -o c .
