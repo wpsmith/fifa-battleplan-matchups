@@ -250,12 +250,12 @@ func (lm LeagueMatches) MatchToString(match *LeagueMatch) string {
 	)
 }
 func (lm LeagueMatches) ToString() string {
-	var output string
-	for leagueMatch := range lm.Iter() {
-		match := leagueMatch.Value.(*LeagueMatch)
-		//match.Eval()
-		output += lm.MatchToString(match)
-	}
+	var output string = ""
+	//for leagueMatch := range lm.Iter() {
+	//match := leagueMatch.Value.(*LeagueMatch)
+	//match.Eval()
+	//output += lm.MatchToString(match)
+	//}
 
 	output += fmt.Sprintf(
 		"TopDelta: %v\nTopByMostGreatChances: %v\nTopByMostGoodChances: %v\nTopByLeastCounterChances: %v\n",

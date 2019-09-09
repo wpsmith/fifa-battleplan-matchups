@@ -11,13 +11,16 @@ func main() {
 	//var wg sync.WaitGroup
 	var gorc0 gorc.Gorc
 	// Timings
-	// 5 - 120 - 810.127µs
-	// 8 - 40320 - 237.132058ms
-	// 10 - 3628800 - 3.751199486s, 3.405009508s, 3.851032714s
+	// 5/5 - 120 - 275.43µs
+	// 8/5 - 40320 - 90.026697ms
+	// 8/8 - 40320 - 87.021991ms
+	// 10/10 - 3628800 -  10.671094261s
+	// 10/10 - 3628800 - 3.751199486s, 3.405009508s, 3.851032714s
 	// 11 - 39916800 - 1m45.037341738s
 	// 12 - 479001600 -
 
-	num := 8
+	num := 11
+	routines := 32
 	opponentTeam := getOpponentTeam(num)
 	activeTeam := getActiveTeam(num)
 
@@ -70,7 +73,7 @@ func main() {
 		//}(opponentTeam, &wg, count)
 
 	}
-	gorc0.WaitLow(8)
+	gorc0.WaitLow(routines)
 
 	//wg.Wait()
 
