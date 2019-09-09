@@ -61,7 +61,7 @@ func main() {
 				leagueMatch.Matchups = append(leagueMatch.Matchups, match)
 			}
 			leagueMatch.Eval()
-			leagueMatches.Append(leagueMatch)
+			//leagueMatches.Append(leagueMatch)
 
 			// Eval and Compare with best.
 			leagueMatches.SetBestDelta(leagueMatch)
