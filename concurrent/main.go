@@ -1,12 +1,15 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	prmt "github.com/gitchander/permutation"
 	"github.com/jinzhu/copier"
 	"github.com/mr51m0n/gorc"
 	"time"
 )
+
+var numFlag, routinesFlag int
 
 func main() {
 	//var wg sync.WaitGroup
@@ -15,13 +18,14 @@ func main() {
 	// Timings
 	// 5/5 - 120 - 275.43µs
 	// 8/8 - 40320 - 148.265136ms (aws2) / 87.021991ms (mac)
-	// 10/10 (aws2) - 3628800 -  12.978298938s / 10.671094261s
+	// 10/10 (aws2) - 3628800 - 2m10.954049369s //  12.978298938s / 10.671094261s
 	// 10/10 (mac) - 3628800 - 3.751199486s, 3.405009508s, 3.851032714s
 	// 11 - 39916800 - 2m28.170180976s (aws2) / 13m54.083020212s (mac)
 	// 12 - 479001600 -
 
-	num := 10
-	routines := 10
+	flag.Parse()
+	num := numFlag
+	routines := routinesFlag
 	opponentTeam := getOpponentTeam(num)
 	activeTeam := getActiveTeam(num)
 
@@ -108,4 +112,9 @@ func hasDuplicates(elements []Team) bool {
 
 	// Return the new slice.
 	return false
+}
+
+func init() {
+	flag.IntVar(&numFlag, "n", 10, "Number of teams")
+	flag.IntVar(&routinesFlag, "r", numFlag, "Number of routines to allow (defaults to n)")
 }
