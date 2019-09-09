@@ -64,6 +64,7 @@ func (c Chances) Get(diff int) Chance {
 }
 
 type Matchup struct {
+	Index         int
 	Team          Team
 	Opponent      Team
 	Delta         int
@@ -75,8 +76,9 @@ func (m *Matchup) Diff() int {
 	return m.Team.OVR - m.Opponent.OVR
 }
 
-func NewMatchup(home, opponent Team) *Matchup {
+func NewMatchup(i int, home, opponent Team) *Matchup {
 	match := &Matchup{
+		Index:    i,
 		Team:     home,
 		Opponent: opponent,
 	}
@@ -143,10 +145,11 @@ func (lm *LeagueMatch) Eval() {
 }
 
 func (lm LeagueMatch) ToString() string {
-	var output string = fmt.Sprintf("LEAGUE #%d | ", lm.Index)
+	var output string = fmt.Sprintf("LEAGUE #%d\n", lm.Index)
 	for _, leagueMatch := range lm.Matchups {
 		output += fmt.Sprintf(
-			"%s (%d) v. %s (%d) : %d\n",
+			"%d) %s (%d) v. %s (%d) : %d\n",
+			leagueMatch.Index,
 			leagueMatch.Team.Name,
 			leagueMatch.Team.OVR,
 			leagueMatch.Opponent.Name,
@@ -173,9 +176,18 @@ type LeagueMatches struct {
 	TopByDelta               *LeagueMatch
 }
 
-func (lm *LeagueMatches) SetMostGreatChances(match *LeagueMatch) {
+func (lm *LeagueMatches) Set(match *LeagueMatch) {
 	lm.Lock()
 	defer lm.Unlock()
+
+	lm.setBestDelta(match)
+	lm.setMostGreatChances(match)
+	lm.setMostGoodChances(match)
+	lm.setLeastCounterChances(match)
+}
+func (lm *LeagueMatches) setMostGreatChances(match *LeagueMatch) {
+	//lm.Lock()
+	//defer lm.Unlock()
 
 	topLeague := lm.TopByMostGreatChances
 	if topLeague == nil || topLeague.Chance.Great < match.Chance.Great {
@@ -188,9 +200,9 @@ func (lm *LeagueMatches) SetMostGreatChances(match *LeagueMatch) {
 		}
 	}
 }
-func (lm *LeagueMatches) SetMostGoodChances(match *LeagueMatch) {
-	lm.Lock()
-	defer lm.Unlock()
+func (lm *LeagueMatches) setMostGoodChances(match *LeagueMatch) {
+	//lm.Lock()
+	//defer lm.Unlock()
 
 	topLeague := lm.TopByMostGoodChances
 	if topLeague == nil || topLeague.Chance.Good < match.Chance.Good {
@@ -203,9 +215,9 @@ func (lm *LeagueMatches) SetMostGoodChances(match *LeagueMatch) {
 		}
 	}
 }
-func (lm *LeagueMatches) SetLeastCounterChances(match *LeagueMatch) {
-	lm.Lock()
-	defer lm.Unlock()
+func (lm *LeagueMatches) setLeastCounterChances(match *LeagueMatch) {
+	//lm.Lock()
+	//defer lm.Unlock()
 
 	topLeague := lm.TopByLeastCounterChances
 	if topLeague == nil || topLeague.Chance.Counter > match.Chance.Counter {
@@ -219,9 +231,9 @@ func (lm *LeagueMatches) SetLeastCounterChances(match *LeagueMatch) {
 		}
 	}
 }
-func (lm *LeagueMatches) SetBestDelta(match *LeagueMatch) {
-	lm.Lock()
-	defer lm.Unlock()
+func (lm *LeagueMatches) setBestDelta(match *LeagueMatch) {
+	//lm.Lock()
+	//defer lm.Unlock()
 
 	topLeague := lm.TopByDelta
 	if topLeague == nil || topLeague.Delta < match.Delta {
