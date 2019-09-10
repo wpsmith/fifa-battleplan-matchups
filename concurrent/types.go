@@ -271,10 +271,14 @@ func (lm LeagueMatches) ToString() string {
 
 	output += fmt.Sprintf(
 		"TopDelta: %v\nTopByMostGreatChances: %v\nTopByMostGoodChances: %v\nTopByLeastCounterChances: %v\n",
-		lm.TopByDelta.ToString(),
-		lm.TopByMostGreatChances.ToString(),
-		lm.TopByMostGoodChances.ToString(),
-		lm.TopByLeastCounterChances.ToString(),
+		//lm.TopByDelta.ToString(),
+		//lm.TopByMostGreatChances.ToString(),
+		//lm.TopByMostGoodChances.ToString(),
+		//lm.TopByLeastCounterChances.ToString(),
+		lm.MatchToString(lm.TopByDelta),
+		lm.MatchToString(lm.TopByMostGreatChances),
+		lm.MatchToString(lm.TopByMostGoodChances),
+		lm.MatchToString(lm.TopByLeastCounterChances),
 	)
 
 	return output

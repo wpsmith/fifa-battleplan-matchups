@@ -92,17 +92,29 @@ package main
 //}
 func getActiveTeam(n int) League {
 	teams := League{
-		Team{"Simba", 111},
-		Team{"shahreaver", 124},
-		Team{"retrovirus", 126},
-		Team{"ChAmP", 120},
-		Team{"NYRB", 121},
+		Team{"Rithav", 133},
+		Team{"Bryan", 133},
+		Team{"Exaclibur", 132},
+		Team{"UzairNayyer", 131},
+		Team{"coolkimani", 128},
 
-		Team{"BlessMabZ", 116},
-		Team{"daz", 125},
-		Team{"TubyAardvark", 118},
-		Team{"pop123007", 125},
-		Team{"Shaunak", 123},
+		Team{"kaiss", 128},
+		Team{"Scorpion", 127},
+		Team{"PaglaNr1", 126},
+		Team{"EricKok", 126},
+		Team{"Mufali1", 126},
+
+		//Team{"Simba", 111},
+		//Team{"shahreaver", 124},
+		//Team{"retrovirus", 126},
+		//Team{"ChAmP", 120},
+		//Team{"NYRB", 121},
+		//
+		//Team{"BlessMabZ", 116},
+		//Team{"daz", 125},
+		//Team{"TubyAardvark", 118},
+		//Team{"pop123007", 125},
+		//Team{"Shaunak", 123},
 
 		Team{"Reagan420", 121},
 		Team{"BePrepared", 117},

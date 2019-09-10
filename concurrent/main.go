@@ -6,12 +6,16 @@ import (
 	prmt "github.com/gitchander/permutation"
 	"github.com/jinzhu/copier"
 	"github.com/mr51m0n/gorc"
+	"runtime"
 	"time"
 )
 
 var numFlag, routinesFlag int
 
 func main() {
+	fmt.Printf("CPU: %d\n", runtime.NumCPU())
+	runtime.GOMAXPROCS(runtime.NumCPU())
+
 	//var wg sync.WaitGroup
 	var gorc0 gorc.Gorc
 
@@ -20,7 +24,7 @@ func main() {
 	// 8/8 - 40320 - 148.265136ms (aws2) / 87.021991ms (mac)
 	// 10/10 (aws2) - 3628800 - 2m10.954049369s //  12.978298938s / 10.671094261s
 	// 10/10 (mac) - 3628800 - 3.751199486s, 3.405009508s, 3.851032714s
-	// 11 - 39916800 - 2m28.170180976s (aws2) / 13m54.083020212s (mac)
+	// 11 - 39,916,800 - 2m28.170180976s (aws2) / 13m54.083020212s (mac)
 	// 12 - 479001600 -
 
 	flag.Parse()
@@ -116,5 +120,5 @@ func hasDuplicates(elements []Team) bool {
 
 func init() {
 	flag.IntVar(&numFlag, "n", 10, "Number of teams")
-	flag.IntVar(&routinesFlag, "r", numFlag, "Number of routines to allow (defaults to n)")
+	flag.IntVar(&routinesFlag, "r", numFlag*5, "Number of routines to allow (defaults to n)")
 }
