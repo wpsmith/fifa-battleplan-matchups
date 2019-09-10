@@ -15,3 +15,4 @@ go env
 go get github.com/wpsmith/fifa-battleplan-matchups/concurrent
 cd "$GOPATH/src/github.com/wpsmith/fifa-battleplan-matchups/concurrent"
 go build -o c .
+./c -n 5
