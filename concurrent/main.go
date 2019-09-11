@@ -1,20 +1,82 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
+	"github.com/thecodeteam/goodbye"
+	"log"
+	"os"
+	"runtime"
+	"time"
+
 	prmt "github.com/gitchander/permutation"
 	"github.com/jinzhu/copier"
 	"github.com/mr51m0n/gorc"
-	"runtime"
-	"time"
 )
 
-var numFlag, routinesFlag int
+var (
+	numFlag, routinesFlag int
+	//done chan bool
+)
+
+//func setLog() {
+//    num := flag.CommandLine.Lookup("n").Value.String()
+//    f, err := os.OpenFile(fmt.Sprintf("c%s.log", num), os.O_RDWR | os.O_CREATE | os.O_APPEND, 0666)
+//    if err != nil {
+//        log.Fatalf("error opening file: %v", err)
+//    }
+//    defer f.Close()
+//
+//    log.SetOutput(f)
+//}
 
 func main() {
-	fmt.Printf("CPU: %d\n", runtime.NumCPU())
+	// Create a context to use with the Goodbye library's functions.
+	ctx := context.Background()
+
+	// Always defer `goodbye.Exit` as early as possible since it is
+	// safe to execute no matter what.
+	defer goodbye.Exit(ctx, -1)
+
+	// Invoke `goodbye.Notify` to begin trapping signals this process
+	// might receive. The Notify function can specify which signals are
+	// trapped, but if none are specified then a default list is used.
+	// The default set is platform dependent. See the files
+	// "goodbye_GOOS.go" for more information.
+	goodbye.Notify(ctx)
+
+	//done = make(chan bool)
 	runtime.GOMAXPROCS(runtime.NumCPU())
+
+	flag.Parse()
+	num := numFlag
+	routines := routinesFlag
+
+	// Register two functions that will be executed when this process
+	// exits.
+	goodbye.Register(func(ctx context.Context, sig os.Signal) {
+		num := flag.CommandLine.Lookup("n").Value.String()
+		f, err := os.OpenFile(fmt.Sprintf("c%s.log", num), os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+		if err != nil {
+			log.Fatalf("error opening file: %v", err)
+		}
+		defer f.Close()
+
+		log.SetOutput(f)
+
+		fmt.Printf("GOODBYE: %[1]d: %[1]s\n", sig)
+		log.Printf("GOODBYE: %[1]d: %[1]s\n", sig)
+	})
+
+	//setLog()
+	f, err := os.OpenFile(fmt.Sprintf("c%d.log", num), os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	if err != nil {
+		log.Fatalf("error opening file: %v", err)
+	}
+	defer f.Close()
+
+	log.SetOutput(f)
 
 	//var wg sync.WaitGroup
 	var gorc0 gorc.Gorc
@@ -27,9 +89,6 @@ func main() {
 	// 11 - 39,916,800 - 2m28.170180976s (aws2) / 13m54.083020212s (mac)
 	// 12 - 479001600 -
 
-	flag.Parse()
-	num := numFlag
-	routines := routinesFlag
 	opponentTeam := getOpponentTeam(num)
 	activeTeam := getActiveTeam(num)
 
@@ -43,6 +102,7 @@ func main() {
 
 		//wg.Add(1)
 		gorc0.Inc()
+
 		t := League{}
 		copier.Copy(&t, &opponentTeam)
 
@@ -88,17 +148,26 @@ func main() {
 	}
 	gorc0.WaitLow(routines)
 
-	//wg.Wait()
-
 	elapsed := time.Since(start)
 	//fmt.Printf("leagueMatches Diff: %d\n", leagueMatches.Diff())
-	fmt.Printf("team: %v\n", getActiveTeam(num))
-	fmt.Printf("opponent: %v\n", getOpponentTeam(num))
-	fmt.Printf("leagueMatches: %v\n", leagueMatches.ToString())
+	log.Printf("team: %v\n", getActiveTeam(num))
+	log.Printf("opponent: %v\n", getOpponentTeam(num))
+	log.Printf("leagueMatches: %v\n", leagueMatches.ToString())
 	//fmt.Printf("leagueMatches: %+v\n", leagueMatches.ToString())
-	fmt.Printf("%d Combinations took %s\n", count, elapsed)
-	fmt.Println("Done")
+	log.Printf("%d Combinations took %s\n", count, elapsed)
+	log.Println("Done")
 
+	//go forever()
+	//<-done
+}
+
+func forever() {
+	//for {
+	//    log.Printf("%v+\n", time.Now())
+	//    time.Sleep(time.Minute)
+	//}
+
+	//done <- true
 }
 
 func hasDuplicates(elements []Team) bool {
