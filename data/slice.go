@@ -23,99 +23,99 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 // THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-package main
+package data
 
 import "sync"
 
 // ConcurrentSlice type that can be safely shared between goroutines
 type ConcurrentSlice struct {
-    sync.RWMutex
-    items []interface{}
+	sync.RWMutex
+	items []interface{}
 }
 
 // ConcurrentSliceItem contains the index/value pair of an item in a
 // concurrent slice
 type ConcurrentSliceItem struct {
-    Index int
-    Value interface{}
+	Index int
+	Value interface{}
 }
 
 // NewConcurrentSlice creates a new concurrent slice
 func NewConcurrentSlice() *ConcurrentSlice {
-    cs := &ConcurrentSlice{
-        items: make([]interface{}, 0),
-    }
+	cs := &ConcurrentSlice{
+		items: make([]interface{}, 0),
+	}
 
-    return cs
+	return cs
 }
 
 func NewConcurrentSizedSlice(maxSize int) *ConcurrentSlice {
-    cs := &ConcurrentSlice{
-        items: make([]interface{}, 0, maxSize),
-    }
+	cs := &ConcurrentSlice{
+		items: make([]interface{}, 0, maxSize),
+	}
 
-    return cs
+	return cs
 }
 
 func (cs *ConcurrentSlice) Items() []interface{} {
-    cs.Lock()
-    defer cs.Unlock()
+	cs.Lock()
+	defer cs.Unlock()
 
-    return cs.items
+	return cs.items
 }
 
 func (cs *ConcurrentSlice) GetItem(i int) interface{} {
-    cs.Lock()
-    defer cs.Unlock()
+	cs.Lock()
+	defer cs.Unlock()
 
-    return cs.items[i]
+	return cs.items[i]
 }
 
 // Append adds an item to the concurrent slice
 func (cs *ConcurrentSlice) Append(item interface{}) {
-    cs.Lock()
-    defer cs.Unlock()
+	cs.Lock()
+	defer cs.Unlock()
 
-    cs.items = append(cs.items, item)
+	cs.items = append(cs.items, item)
 }
 
 // Append adds an item to the concurrent slice
 func (cs *ConcurrentSlice) Appends(items ...interface{}) {
-    cs.Lock()
-    defer cs.Unlock()
+	cs.Lock()
+	defer cs.Unlock()
 
-    cs.items = append(cs.items, items...)
+	cs.items = append(cs.items, items...)
 }
 
 func (cs *ConcurrentSlice) Len() int {
-    cs.Lock()
-    defer cs.Unlock()
+	cs.Lock()
+	defer cs.Unlock()
 
-    return len(cs.items)
+	return len(cs.items)
 }
 
 func (cs *ConcurrentSlice) Swap(i, j int) {
-    cs.Lock()
-    defer cs.Unlock()
+	cs.Lock()
+	defer cs.Unlock()
 
-    cs.items[i], cs.items[j] = cs.items[j], cs.items[i]
+	cs.items[i], cs.items[j] = cs.items[j], cs.items[i]
 }
 
 // Iter iterates over the items in the concurrent slice
 // Each item is sent over a channel, so that
 // we can iterate over the slice using the builin range keyword
 func (cs *ConcurrentSlice) Iter() <-chan ConcurrentSliceItem {
-    c := make(chan ConcurrentSliceItem)
+	c := make(chan ConcurrentSliceItem)
 
-    f := func() {
-        cs.Lock()
-        defer cs.Unlock()
-        for index, value := range cs.items {
-            c <- ConcurrentSliceItem{index, value}
-        }
-        close(c)
-    }
-    go f()
+	f := func() {
+		cs.Lock()
+		defer cs.Unlock()
+		for index, value := range cs.items {
+			c <- ConcurrentSliceItem{index, value}
+		}
+		close(c)
+	}
+	go f()
 
-    return c
+	return c
 }

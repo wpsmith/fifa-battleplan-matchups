@@ -4,6 +4,7 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"github.com/thecodeteam/goodbye"
 	"github.com/wpsmith/fifa-battleplan-matchups/data"
 	"log"
 	"os"
@@ -12,7 +13,6 @@ import (
 
 	prmt "github.com/gitchander/permutation"
 	"github.com/jinzhu/copier"
-	"github.com/thecodeteam/goodbye"
 	//"github.com/mr51m0n/gorc"
 )
 
