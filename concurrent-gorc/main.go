@@ -4,16 +4,15 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	"github.com/thecodeteam/goodbye"
-	"github.com/wpsmith/fifa-battleplan-matchups/data"
 	"log"
 	"os"
-	"sync"
 	"time"
 
 	prmt "github.com/gitchander/permutation"
 	"github.com/jinzhu/copier"
-	//"github.com/mr51m0n/gorc"
+	"github.com/mr51m0n/gorc"
+	"github.com/thecodeteam/goodbye"
+	"github.com/wpsmith/fifa-battleplan-matchups/data"
 )
 
 var (
@@ -48,7 +47,7 @@ func main() {
 
 	flag.Parse()
 	num := numFlag
-	//routines := routinesFlag
+	routines := routinesFlag
 
 	// Register two functions that will be executed when this process
 	// exits.
@@ -74,8 +73,8 @@ func main() {
 
 	log.SetOutput(f)
 
-	var wg sync.WaitGroup
-	//var gorc0 gorc.Gorc
+	//var wg sync.WaitGroup
+	var gorc0 gorc.Gorc
 
 	opponentTeam := data.GetOpponentTeam(num)
 	activeTeam := data.GetActiveTeam(num)
@@ -88,16 +87,16 @@ func main() {
 	for p.Next() {
 		count += 1
 
-		wg.Add(1)
-		//gorc0.Inc()
+		//wg.Add(1)
+		gorc0.Inc()
 
 		t := data.League{}
 		copier.Copy(&t, &opponentTeam)
 
-		go func(team data.League, wg *sync.WaitGroup, c int) {
-			defer wg.Done()
-			//go func(team League, c int) {
-			//defer gorc0.Dec()
+		//go func(team data.League, wg *sync.WaitGroup, c int) {
+		//	defer wg.Done()
+		go func(team data.League, c int) {
+			defer gorc0.Dec()
 
 			//leagueMatch := NewConcurrentSlice()
 			//for i, opp := range opponentTeam {
@@ -130,12 +129,12 @@ func main() {
 			// Eval and Compare with best.
 			leagueMatches.Set(leagueMatch)
 
-			//}(t, count)
-		}(opponentTeam, &wg, count)
+		}(t, count)
+		//}(opponentTeam, &wg, count)
 
 	}
-	wg.Wait()
-	//gorc0.WaitLow(routines)
+	//wg.Wait()
+	gorc0.WaitLow(routines)
 
 	elapsed := time.Since(start)
 	//fmt.Printf("leagueMatches Diff: %d\n", leagueMatches.Diff())
