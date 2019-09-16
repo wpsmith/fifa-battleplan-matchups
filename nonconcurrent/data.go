@@ -82,41 +82,41 @@ package main
 
 func getActiveTeam(n int) League {
 	teams := League{
-		Team{"Simba", 111},
-		Team{"shahreaver", 124},
-		Team{"retrovirus", 126},
-		Team{"ChAmP", 120},
-		Team{"NYRB", 121},
-
-		Team{"BlessMabZ", 116},
-		Team{"daz", 125},
-		Team{"TubyAardvark", 118},
-		Team{"pop123007", 125},
-		Team{"Shaunak", 123},
-
-		Team{"Reagan420", 121},
-		Team{"BePrepared", 117},
-		Team{"raiden", 118},
-		Team{"ed", 122},
-		Team{"Z", 119},
-
-		Team{"Kitemafia", 117},
-		Team{"smithsaga", 125},
-		Team{"hell", 123},
-		Team{"Kushal", 118},
-		Team{"kairoschris", 125},
-
-		Team{"fcbarca", 111},
-		Team{"fsugio305", 107},
-		Team{"Mahdi", 114},
-		Team{"nads0", 119},
-		Team{"naman", 111},
-
-		Team{"kilkr", 118},
-		Team{"Desquexele", 120},
-		Team{"tranquilityy", 122},
-		Team{"jan", 121},
-		Team{"ryan2985", 121},
+		//Team{"Simba", 111},
+		//Team{"shahreaver", 124},
+		//Team{"retrovirus", 126},
+		//Team{"ChAmP", 120},
+		//Team{"NYRB", 121},
+		//
+		//Team{"BlessMabZ", 116},
+		//Team{"daz", 125},
+		//Team{"TubyAardvark", 118},
+		//Team{"pop123007", 125},
+		//Team{"Shaunak", 123},
+		//
+		//Team{"Reagan420", 121},
+		//Team{"BePrepared", 117},
+		//Team{"raiden", 118},
+		//Team{"ed", 122},
+		//Team{"Z", 119},
+		//
+		//Team{"Kitemafia", 117},
+		//Team{"smithsaga", 125},
+		//Team{"hell", 123},
+		//Team{"Kushal", 118},
+		//Team{"kairoschris", 125},
+		//
+		//Team{"fcbarca", 111},
+		//Team{"fsugio305", 107},
+		//Team{"Mahdi", 114},
+		//Team{"nads0", 119},
+		//Team{"naman", 111},
+		//
+		//Team{"kilkr", 118},
+		//Team{"Desquexele", 120},
+		//Team{"tranquilityy", 122},
+		//Team{"jan", 121},
+		//Team{"ryan2985", 121},
 	}
 
 	return (teams)[0:n]
@@ -124,41 +124,42 @@ func getActiveTeam(n int) League {
 
 func getOpponentTeam(n int) League {
 	teams := League{
-		Team{"Roggo", 119},
-		Team{"Clark", 126},
-		Team{"bluj1025", 122},
-		Team{"BMUVAN", 124},
-		Team{"TylerSmith", 122},
 
-		Team{"Dragon2010", 124},
-		Team{"catson", 116},
-		Team{"Luke", 122},
-		Team{"xav", 111},
-		Team{"NewJerseyFC", 114},
-
-		Team{"Coles-goals", 115},
-		Team{"Thor", 120},
-		Team{"dustinj", 121},
-		Team{"MarcG", 114},
-		Team{"sajj990", 123},
-
-		Team{"Sr.Alex", 115},
-		Team{"discgolf410", 114},
-		Team{"AllanFraga23", 123},
-		Team{"kingdrogba", 116},
-		Team{"SEA60", 117},
-
-		Team{"shreddinsam", 116},
-		Team{"R.Baggio", 118},
-		Team{"heiler", 114},
-		Team{"SCWolverine", 120},
-		Team{"jay", 114},
-
-		Team{"jespinoza", 120},
-		Team{"bell", 121},
-		Team{"biv", 125},
-		Team{"devoe", 129},
-		Team{"same", 131},
+		//Team{"Roggo", 119},
+		//Team{"Clark", 126},
+		//Team{"bluj1025", 122},
+		//Team{"BMUVAN", 124},
+		//Team{"TylerSmith", 122},
+		//
+		//Team{"Dragon2010", 124},
+		//Team{"catson", 116},
+		//Team{"Luke", 122},
+		//Team{"xav", 111},
+		//Team{"NewJerseyFC", 114},
+		//
+		//Team{"Coles-goals", 115},
+		//Team{"Thor", 120},
+		//Team{"dustinj", 121},
+		//Team{"MarcG", 114},
+		//Team{"sajj990", 123},
+		//
+		//Team{"Sr.Alex", 115},
+		//Team{"discgolf410", 114},
+		//Team{"AllanFraga23", 123},
+		//Team{"kingdrogba", 116},
+		//Team{"SEA60", 117},
+		//
+		//Team{"shreddinsam", 116},
+		//Team{"R.Baggio", 118},
+		//Team{"heiler", 114},
+		//Team{"SCWolverine", 120},
+		//Team{"jay", 114},
+		//
+		//Team{"jespinoza", 120},
+		//Team{"bell", 121},
+		//Team{"biv", 125},
+		//Team{"devoe", 129},
+		//Team{"same", 131},
 	}
 
 	return (teams)[0:n]

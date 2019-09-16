@@ -92,6 +92,21 @@ package main
 //}
 func getActiveTeam(n int) League {
 	teams := League{
+		// GC FC
+		Team{"Marcelv", 140},
+		Team{"Shah", 140},
+		Team{"Favour", 137},
+		Team{"Haseeb", 133},
+		Team{"Dartmund123", 136},
+		Team{"Champ2016", 133},
+		Team{"LynnfieldFc", 133},
+		Team{"Alikhani", 131},
+		Team{"Ferac", 132},
+		Team{"Ash", 131},
+		Team{"Daniel", 132},
+		Team{"Aythriel", 132},
+
+		// GC Warriors
 		Team{"Rithav", 133},
 		Team{"Bryan", 133},
 		Team{"Exaclibur", 132},
@@ -146,6 +161,20 @@ func getActiveTeam(n int) League {
 
 func getOpponentTeam(n int) League {
 	teams := League{
+
+		Team{"Lethal", 140},
+		Team{"Rudythewiz", 138},
+		Team{"Rabik", 135},
+		Team{"Jinoliver", 137},
+		Team{"Golost", 140},
+		Team{"Kidclutch9", 134},
+		Team{"Beekay", 134},
+		Team{"NykrinDC", 128},
+		Team{"MCsharkteam", 130},
+		Team{"Stronglion", 130},
+		Team{"Zeus", 130},
+		Team{"Elias", 130},
+
 		Team{"Roggo", 119},
 		Team{"Clark", 126},
 		Team{"bluj1025", 122},
